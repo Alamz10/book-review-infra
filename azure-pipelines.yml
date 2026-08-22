@@ -1,0 +1,55 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  paths:
+    include:
+    - terraform/**
+  branches:
+    include:
+      - main
+
+stages:
+
+- stage: Terraform
+  displayName:
+  jobs:
+  - job: Terraform_Apply
+    displayName: 'Terraform Apply'
+    pool:
+      vmImage: ubuntu-latest
+      name:
+    steps:
+
+    - task: DownloadSecureFile@1
+      name: download_ssh_key
+      inputs:
+        secureFile: 'id_ed25519.pub'
+    
+    - script: |
+        echo "copying SSH public key into Terraform module"
+          
+        mkdir -p ~/.ssh
+        cp $(download_ssh_key.secureFilePath) ~/.ssh/id_rsa.pub
+          
+        cp $(download_ssh_key.secureFilePath)  terraform/modules/compute/id_rsa.pub
+        echo "Listing contents of terraform/modules/compute/"
+        ls -al terradorm/modules/compute/
+
+      displayName: 'Extraxt SSH Public Key for Terraform'
+
+    - task: AzureCLI@3
+      inputs:
+        azureSubscription: 'Azure subscription 1(f8ee80e8-752b-4d6e-b78e-6a1e3020c435)'
+        scriptType: 'batch'
+        scriptLocation: 'inlineScript'
+        workingDirectory: '$(system.DefaultWorkingDirectory)/terraform'
+        inlineScript: |
+          echo "##[group] Terraform Init/Plan/Apply"
+          cd terraform
+          terraform init -input=false
+          terraform plan -input=false -var-file="envs/dev.tfvars
+          terraform apply -input=false -auto-approve-var-file="envs/dev.tfvars"
+          echo "##[endgroup]"
