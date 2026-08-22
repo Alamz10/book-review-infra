@@ -20,7 +20,7 @@ stages:
     displayName: 'Terraform Apply'
     pool:
       vmImage: ubuntu-latest
-      name:
+      
     steps:
 
     - task: DownloadSecureFile@1
