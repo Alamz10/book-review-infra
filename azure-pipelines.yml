@@ -6,7 +6,7 @@
 trigger:
   paths:
     include:
-    - book-review-infra/**
+    - terraform/**
   branches:
     include:
       - main
@@ -34,9 +34,9 @@ stages:
         mkdir -p ~/.ssh
         cp $(download_ssh_key.secureFilePath) ~/.ssh/id_ed25519.pub
           
-        cp $(download_ssh_key.secureFilePath)  modules/compute/id_ed25519.pub
-        echo "Listing contents of modules/compute/"
-        ls -al modules/compute/
+        cp $(download_ssh_key.secureFilePath)  terraform/modules/compute/id_ed25519.pub
+        echo "Listing contents of terraform/modules/compute/"
+        ls -al terraform/modules/compute/
 
       displayName: 'Extraxt SSH Public Key for Terraform'
 
@@ -45,10 +45,10 @@ stages:
         azureSubscription: 'Azure subscription 1(f8ee80e8-752b-4d6e-b78e-6a1e3020c435)'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
-        workingDirectory: '$(system.DefaultWorkingDirectory)'
+        workingDirectory: '$(system.DefaultWorkingDirectory)/terraform'
         inlineScript: |
           echo "##[group] Terraform Init/Plan/Apply"
-        
+          cd terraform
           terraform init -input=false
           terraform plan -input=false -var-file="env/dev.tfvars"
           terraform apply -input=false -auto-approve-var-file="env/dev.tfvars"
