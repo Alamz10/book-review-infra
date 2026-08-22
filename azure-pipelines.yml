@@ -40,10 +40,10 @@ stages:
 
       displayName: 'Extraxt SSH Public Key for Terraform'
 
-    - task: AzureCLI@3
+    - task: AzureCLI@2
       inputs:
         azureSubscription: 'Azure subscription 1(f8ee80e8-752b-4d6e-b78e-6a1e3020c435)'
-        scriptType: 'batch'
+        scriptType: 'bash'
         scriptLocation: 'inlineScript'
         workingDirectory: '$(system.DefaultWorkingDirectory)'
         inlineScript: |
