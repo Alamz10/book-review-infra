@@ -51,5 +51,5 @@ stages:
         
           terraform init -input=false
           terraform plan -input=false -var-file="env/dev.tfvars
-          terraform apply -input=false -auto-approve-var-file="envs/dev.tfvars"
+          terraform apply -input=false -auto-approve-var-file="env/dev.tfvars"
           echo "##[endgroup]"
