@@ -34,9 +34,9 @@ stages:
         mkdir -p ~/.ssh
         cp $(download_ssh_key.secureFilePath) ~/.ssh/id_ed25519.pub
           
-        cp $(download_ssh_key.secureFilePath)  mini-finance/modules/compute/id_ed25519.pub
-        echo "Listing contents of mini-finance/modules/compute/"
-        ls -al mini-finance/modules/compute/
+        cp $(download_ssh_key.secureFilePath)  modules/compute/id_ed25519.pub
+        echo "Listing contents of modules/compute/"
+        ls -al /modules/compute/
 
       displayName: 'Extraxt SSH Public Key for Terraform'
 
