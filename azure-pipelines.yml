@@ -41,7 +41,11 @@ stages:
       displayName: 'Extraxt SSH Public Key for Terraform'
 
   
-
+    - task: TerraformInstaller@1
+      displayName: 'Install Terraform'
+      inputs:
+        terraformVersion: 'latest'
+        
     - task: AzureCLI@2
       inputs:
         azureSubscription: 'Azure subscription 1(f8ee80e8-752b-4d6e-b78e-6a1e3020c435)'
