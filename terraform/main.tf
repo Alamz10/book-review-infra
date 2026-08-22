@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "rg" {
 }
 
 module "network" {
-    source = ".terraform/modules/network"
+    source = "./modules/network"
     resource_group_name = var.resource_group_name
     location = var.location
     application_name = var.application_name
@@ -15,7 +15,7 @@ module "network" {
 }
 
 module "compute" {
-    source = ".terraform/modules/compute"
+    source = "./modules/compute"
     resource_group_name = var.resource_group_name
     location = var.location
     admin_username = var.adminuser
@@ -28,7 +28,7 @@ module "compute" {
 }
 
 module "database" {
-    source = ".terraform/modules/database"
+    source = "./modules/database"
     resource_group_name = var.resource_group_name
     location = var.location
     mysql_admin_username = var.mysql_admin_username
