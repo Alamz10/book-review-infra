@@ -23,7 +23,7 @@ module "compute" {
     vnet_subnet_id = modules.network.public_subnet_id
     application_name = var.application_name
     environment = var.environment
-    vm_size = var.size
+    vm_size = var.vm_size
     ssh_public_key = var.ssh_public_key
 }
 
