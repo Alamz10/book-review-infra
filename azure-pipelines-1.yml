@@ -30,6 +30,7 @@ stages:
         inlineScript: |
           echo "Terraform Destroy"
 
+          cd terraform
           terraform init -input=false
 
           terraform destroy \
