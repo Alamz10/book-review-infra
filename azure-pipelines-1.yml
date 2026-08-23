@@ -1,0 +1,38 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: TerraformDestroy
+  displayName: 'Terraform Destroy'
+
+  jobs:
+  - job: Destroy
+    displayName: 'Destroy Infrastructure'
+
+    steps:
+
+    - task: AzureCLI@2
+      displayName: 'Terraform Destroy'
+      inputs:
+        azureSubscription: 'Azure subscription 1(f8ee80e8-752b-4d6e-b78e-6a1e3020c435)'
+        scriptType: bash
+        scriptLocation: inlineScript
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        inlineScript: |
+          echo "Terraform Destroy"
+
+          terraform init -input=false
+
+          terraform destroy \
+            -input=false \
+            -auto-approve \
+            -var-file="env/dev.tfvars"
