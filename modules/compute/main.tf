@@ -3,7 +3,7 @@ resource "azurerm_public_ip" "frontend_pip" {
   name                = "${var.application_name}-${var.environment}frontend-pip"
   resource_group_name = var.resource_group_name
   location            = var.location
-  allocation_method   = "Static"
+  allocation_method   = "static"
 }
 
 resource "azurerm_network_interface" "frontend_nic" {
@@ -23,7 +23,7 @@ resource "azurerm_public_ip" "backend_pip" {
   name                = "${var.application_name}-${var.environment}backend-pip"
   resource_group_name = var.resource_group_name
   location            = var.location
-  allocation_method   = "Static"
+  allocation_method   = "static"
 }
 
 resource "azurerm_network_interface" "backend_nic" {
@@ -54,15 +54,14 @@ resource "azurerm_linux_virtual_machine" "frontend_vm" {
   }
 
   admin_ssh_key {
-    username   = var.admin_username
-    public_key = file("${path.module}/id_ed25519.pub")
-
+    username   = "olasadada"
+    public_key = file("${path.module}/id_rsa.pub")
   }
 
   source_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts-gen2"
+    sku       = "22_04-lts"
     version   = "latest"
   }
 
@@ -90,13 +89,13 @@ resource "azurerm_linux_virtual_machine" "backend_vm" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = file("${path.module}/id_ed25519.pub")
+    public_key = file("${path.module}/id_rsa.pub")
   }
 
   source_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts-gen2"
+    sku       = "22_04-lts"
     version   = "latest"
   }
 

@@ -5,7 +5,7 @@ resource "azurerm_mysql_flexible_server" "mysql" {
   location               = var.location
   administrator_login    = var.mysql_admin_username
   administrator_password = var.mysql_admin_password
-  sku_name               = "B_Standard_B1ms"
+  sku_name               = "22_04-lts-gen2"
 }
 
 resource "azurerm_mysql_flexible_database" "bookreview_db" {

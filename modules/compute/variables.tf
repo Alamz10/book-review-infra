@@ -25,5 +25,4 @@ variable "admin_username" {
 variable "admin_password" {
 
 }
-variable "ssh_public_key" {
-}
+variable "ssh_public_key" {}

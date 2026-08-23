@@ -16,3 +16,6 @@ variable "mysql_admin_password" {
 variable "backend_vm_public_ip" {
   
 }
+variable "mysql_database_name" {
+  
+}
